@@ -3,6 +3,7 @@ package oracle
 import (
 	"context"
 	"fmt"
+	"github.com/skip-mev/slinky/providers/apis/xdex"
 	"net/http"
 	"strings"
 
@@ -70,6 +71,8 @@ func APIQueryHandlerFactory(
 	}
 
 	switch providerName := cfg.Name; {
+	case providerName == xdex.Name:
+		apiDataHandler, err = xdex.NewAPIHandler(cfg.API)
 	case providerName == binance.Name:
 		apiDataHandler, err = binance.NewAPIHandler(cfg.API)
 	case providerName == bitstamp.Name:

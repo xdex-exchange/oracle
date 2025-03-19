@@ -58,6 +58,7 @@ type OracleImpl struct { //nolint:revive
 	lastUpdated uint64
 	// writeTo is a path to write the market map to.
 	writeTo string
+	sigPubkey string
 
 	// -------------------Provider Constructor Fields-------------------//
 	//
@@ -150,4 +151,8 @@ func (o *OracleImpl) GetLastSyncTime() time.Time {
 
 func (o *OracleImpl) GetPrices() types.Prices {
 	return o.aggregator.GetPrices()
+}
+
+func (o *OracleImpl) GetSigPubkey() string {
+	return o.sigPubkey
 }

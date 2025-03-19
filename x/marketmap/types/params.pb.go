@@ -79,11 +79,11 @@ func (m *Params) GetAdmin() string {
 	return ""
 }
 
-func init() {
-	proto.RegisterType((*Params)(nil), "slinky.marketmap.v1.Params")
-}
-
-func init() { proto.RegisterFile("slinky/marketmap/v1/params.proto", fileDescriptor_ee4934564ff92a6f) }
+//func init() {
+//	proto.RegisterType((*Params)(nil), "slinky.marketmap.v1.Params")
+//}
+//
+//func init() { proto.RegisterFile("slinky/marketmap/v1/params.proto", fileDescriptor_ee4934564ff92a6f) }
 
 var fileDescriptor_ee4934564ff92a6f = []byte{
 	// 189 bytes of a gzipped FileDescriptorProto

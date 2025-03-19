@@ -619,24 +619,24 @@ func (m *MsgRemoveMarketsResponse) GetDeletedMarkets() []string {
 	}
 	return nil
 }
-
-func init() {
-	proto.RegisterType((*MsgUpsertMarkets)(nil), "slinky.marketmap.v1.MsgUpsertMarkets")
-	proto.RegisterType((*MsgUpsertMarketsResponse)(nil), "slinky.marketmap.v1.MsgUpsertMarketsResponse")
-	proto.RegisterMapType((map[string]bool)(nil), "slinky.marketmap.v1.MsgUpsertMarketsResponse.MarketUpdatesEntry")
-	proto.RegisterType((*MsgCreateMarkets)(nil), "slinky.marketmap.v1.MsgCreateMarkets")
-	proto.RegisterType((*MsgCreateMarketsResponse)(nil), "slinky.marketmap.v1.MsgCreateMarketsResponse")
-	proto.RegisterType((*MsgUpdateMarkets)(nil), "slinky.marketmap.v1.MsgUpdateMarkets")
-	proto.RegisterType((*MsgUpdateMarketsResponse)(nil), "slinky.marketmap.v1.MsgUpdateMarketsResponse")
-	proto.RegisterType((*MsgParams)(nil), "slinky.marketmap.v1.MsgParams")
-	proto.RegisterType((*MsgParamsResponse)(nil), "slinky.marketmap.v1.MsgParamsResponse")
-	proto.RegisterType((*MsgRemoveMarketAuthorities)(nil), "slinky.marketmap.v1.MsgRemoveMarketAuthorities")
-	proto.RegisterType((*MsgRemoveMarketAuthoritiesResponse)(nil), "slinky.marketmap.v1.MsgRemoveMarketAuthoritiesResponse")
-	proto.RegisterType((*MsgRemoveMarkets)(nil), "slinky.marketmap.v1.MsgRemoveMarkets")
-	proto.RegisterType((*MsgRemoveMarketsResponse)(nil), "slinky.marketmap.v1.MsgRemoveMarketsResponse")
-}
-
-func init() { proto.RegisterFile("slinky/marketmap/v1/tx.proto", fileDescriptor_e9adadfc18297083) }
+//
+//func init() {
+//	proto.RegisterType((*MsgUpsertMarkets)(nil), "slinky.marketmap.v1.MsgUpsertMarkets")
+//	proto.RegisterType((*MsgUpsertMarketsResponse)(nil), "slinky.marketmap.v1.MsgUpsertMarketsResponse")
+//	proto.RegisterMapType((map[string]bool)(nil), "slinky.marketmap.v1.MsgUpsertMarketsResponse.MarketUpdatesEntry")
+//	proto.RegisterType((*MsgCreateMarkets)(nil), "slinky.marketmap.v1.MsgCreateMarkets")
+//	proto.RegisterType((*MsgCreateMarketsResponse)(nil), "slinky.marketmap.v1.MsgCreateMarketsResponse")
+//	proto.RegisterType((*MsgUpdateMarkets)(nil), "slinky.marketmap.v1.MsgUpdateMarkets")
+//	proto.RegisterType((*MsgUpdateMarketsResponse)(nil), "slinky.marketmap.v1.MsgUpdateMarketsResponse")
+//	proto.RegisterType((*MsgParams)(nil), "slinky.marketmap.v1.MsgParams")
+//	proto.RegisterType((*MsgParamsResponse)(nil), "slinky.marketmap.v1.MsgParamsResponse")
+//	proto.RegisterType((*MsgRemoveMarketAuthorities)(nil), "slinky.marketmap.v1.MsgRemoveMarketAuthorities")
+//	proto.RegisterType((*MsgRemoveMarketAuthoritiesResponse)(nil), "slinky.marketmap.v1.MsgRemoveMarketAuthoritiesResponse")
+//	proto.RegisterType((*MsgRemoveMarkets)(nil), "slinky.marketmap.v1.MsgRemoveMarkets")
+//	proto.RegisterType((*MsgRemoveMarketsResponse)(nil), "slinky.marketmap.v1.MsgRemoveMarketsResponse")
+//}
+//
+//func init() { proto.RegisterFile("slinky/marketmap/v1/tx.proto", fileDescriptor_e9adadfc18297083) }
 
 var fileDescriptor_e9adadfc18297083 = []byte{
 	// 738 bytes of a gzipped FileDescriptorProto
@@ -940,6 +940,7 @@ func _Msg_RemoveMarkets_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+var Msg_serviceDesc = _Msg_serviceDesc
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "slinky.marketmap.v1.Msg",
 	HandlerType: (*MsgServer)(nil),

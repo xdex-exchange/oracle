@@ -302,15 +302,15 @@ func (m *MarketMap) GetMarkets() map[string]Market {
 	return nil
 }
 
-func init() {
-	proto.RegisterType((*Market)(nil), "slinky.marketmap.v1.Market")
-	proto.RegisterType((*Ticker)(nil), "slinky.marketmap.v1.Ticker")
-	proto.RegisterType((*ProviderConfig)(nil), "slinky.marketmap.v1.ProviderConfig")
-	proto.RegisterType((*MarketMap)(nil), "slinky.marketmap.v1.MarketMap")
-	proto.RegisterMapType((map[string]Market)(nil), "slinky.marketmap.v1.MarketMap.MarketsEntry")
-}
-
-func init() { proto.RegisterFile("slinky/marketmap/v1/market.proto", fileDescriptor_fefe265720fc8a78) }
+//func init() {
+//	proto.RegisterType((*Market)(nil), "slinky.marketmap.v1.Market")
+//	proto.RegisterType((*Ticker)(nil), "slinky.marketmap.v1.Ticker")
+//	proto.RegisterType((*ProviderConfig)(nil), "slinky.marketmap.v1.ProviderConfig")
+//	proto.RegisterType((*MarketMap)(nil), "slinky.marketmap.v1.MarketMap")
+//	proto.RegisterMapType((map[string]Market)(nil), "slinky.marketmap.v1.MarketMap.MarketsEntry")
+//}
+//
+//func init() { proto.RegisterFile("slinky/marketmap/v1/market.proto", fileDescriptor_fefe265720fc8a78) }
 
 var fileDescriptor_fefe265720fc8a78 = []byte{
 	// 550 bytes of a gzipped FileDescriptorProto

@@ -61,7 +61,58 @@ func (o *OracleImpl) Start(ctx context.Context) error {
 	ticker := time.NewTicker(o.cfg.UpdateInterval)
 	defer ticker.Stop()
 	o.metrics.SetSlinkyBuildInfo()
-
+	/*go func() {
+		fmt.Println("update marketmap ready......")
+		time.Sleep(time.Second*30)
+		err := o.UpdateMarketMap(mmtypes.MarketMap{
+			Markets: map[string]mmtypes.Market{
+				"XRP/USD": {
+					Ticker: mmtypes.Ticker{
+						Enabled: true,
+						CurrencyPair: ctypes.CurrencyPair{
+							Base: "XRP",
+							Quote: "USD",
+						},
+						Decimals: 10,
+						MinProviderCount: 2,
+					},
+					ProviderConfigs: []mmtypes.ProviderConfig{
+						{
+							Name: "binance_api",
+							OffChainTicker: "XRPUSDT",
+							NormalizeByPair: &ctypes.CurrencyPair{
+								Base: "USDT",
+								Quote: "USD",
+							},
+						},
+					},
+				},
+				"USDT/USD": {
+					Ticker: mmtypes.Ticker{
+						Enabled: true,
+						CurrencyPair: ctypes.CurrencyPair{
+							Base: "USDT",
+							Quote: "USD",
+						},
+						Decimals: 9,
+						MinProviderCount: 2,
+					},
+					ProviderConfigs: []mmtypes.ProviderConfig{
+						{
+							Name: "binance_api",
+							OffChainTicker: "USDCUSDT",
+							Invert: true,
+						},
+					},
+				},
+			},
+		})
+		if err != nil {
+			fmt.Println("UpdateMarketMap error......", err.Error())
+		} else {
+			fmt.Println("update marketmap success......")
+		}
+	}()*/
 	for {
 		select {
 		case <-ctx.Done():

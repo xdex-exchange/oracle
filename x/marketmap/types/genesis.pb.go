@@ -91,10 +91,10 @@ func (m *GenesisState) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "slinky.marketmap.v1.GenesisState")
+	//proto.RegisterType((*GenesisState)(nil), "slinky.marketmap.v1.GenesisState")
 }
 
-func init() { proto.RegisterFile("slinky/marketmap/v1/genesis.proto", fileDescriptor_a621f29fb8bf99f4) }
+//func init() { proto.RegisterFile("slinky/marketmap/v1/genesis.proto", fileDescriptor_a621f29fb8bf99f4) }
 
 var fileDescriptor_a621f29fb8bf99f4 = []byte{
 	// 265 bytes of a gzipped FileDescriptorProto

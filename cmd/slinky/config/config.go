@@ -15,9 +15,9 @@ import (
 
 const (
 	// DefaultUpdateInterval is the default value for how frequently slinky updates aggregate price responses.
-	DefaultUpdateInterval = 250000000
+	DefaultUpdateInterval = 1_000_000_000
 	// DefaultMaxPriceAge is the default value for the oldest price considered in an aggregate price response by slinky.
-	DefaultMaxPriceAge = 120000000000
+	DefaultMaxPriceAge = 120_000_000_000
 	// DefaultPrometheusServerAddress is the default value for the prometheus server address in slinky.
 	DefaultPrometheusServerAddress = "0.0.0.0:8002"
 	// DefaultMetricsEnabled is the default value for enabling prometheus metrics in slinky.
@@ -122,6 +122,7 @@ func ReadOracleConfigWithOverrides(path string, marketMapProvider string) (confi
 	for name, provider := range cfg.Providers {
 		if provider.Type == mmtypes.ConfigType {
 			if name != marketMapProvider {
+				fmt.Println("ReadOracleConfigWithOverrides", name, "!=", marketMapProvider)
 				delete(cfg.Providers, name)
 			}
 		}

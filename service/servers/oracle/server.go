@@ -1,8 +1,16 @@
 package oracle
 
 import (
+	"bytes"
 	"context"
+	"encoding/gob"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/cometbft/cometbft/crypto/ed25519"
+	ctypes "github.com/skip-mev/slinky/pkg/types"
+	"github.com/skip-mev/slinky/providers/apis/xdex"
 	"net/http"
 	"strings"
 	"time"
@@ -20,6 +28,7 @@ import (
 	"github.com/skip-mev/slinky/oracle"
 	"github.com/skip-mev/slinky/pkg/sync"
 	"github.com/skip-mev/slinky/service/servers/oracle/types"
+	mtypes "github.com/skip-mev/slinky/x/marketmap/types"
 )
 
 const DefaultServerShutdownTimeout = 3 * time.Second
@@ -187,6 +196,73 @@ func (os *OracleServer) Prices(ctx context.Context, req *types.QueryPricesReques
 	case resp := <-resCh:
 		return resp, nil
 	}
+}
+
+func (os *OracleServer) UpdateMarketMap(ctx context.Context, in *types.UpdateMarketMapRequest) (*types.UpdateMarketMapResponse, error) {
+	if len(in.Tickers) < 1 {
+		return &types.UpdateMarketMapResponse{}, nil
+	}
+	sig, err := hex.DecodeString(in.Signature)
+	if err != nil {
+		return &types.UpdateMarketMapResponse{}, err
+	}
+	pubkey, err := hex.DecodeString(os.o.GetSigPubkey())
+	if err != nil {
+		return &types.UpdateMarketMapResponse{}, err
+	}
+	msg, err := json.Marshal(in.Tickers)
+	if err != nil {
+		return &types.UpdateMarketMapResponse{}, err
+	}
+	isPass := ed25519.PubKey(pubkey).VerifySignature(msg, sig)
+	if !isPass {
+		return &types.UpdateMarketMapResponse{}, errors.New("signature no pass")
+	}
+	var mm mtypes.MarketMap
+	var buf bytes.Buffer
+	enc := gob.NewEncoder(&buf)
+	dec := gob.NewDecoder(&buf)
+	_ = enc.Encode(os.o.GetMarketMap())
+	_ = dec.Decode(&mm)
+	for _, ticker := range in.Tickers {
+		pair := ticker.CurrencyPair.String()
+		if market, ok := mm.Markets[pair]; ok {
+			market.Ticker.Enabled = ticker.Enabled
+			market.Ticker.Decimals = ticker.Decimals
+			mm.Markets[pair] = market
+		} else {
+			mm.Markets[pair] = mtypes.Market{
+				Ticker: mtypes.Ticker{
+					Enabled: ticker.Enabled,
+					CurrencyPair: ctypes.CurrencyPair{
+						Base: ticker.CurrencyPair.Base,
+						Quote: ticker.CurrencyPair.Quote,
+					},
+					Decimals: ticker.Decimals,
+					MinProviderCount: 1,
+				},
+				ProviderConfigs: []mtypes.ProviderConfig{
+					{
+						Name: xdex.Name,
+						OffChainTicker: fmt.Sprintf("%s%s", ticker.CurrencyPair.Base, ticker.CurrencyPair.Quote),
+						NormalizeByPair: &ctypes.CurrencyPair{
+							Base: "USDT",
+							Quote: "USD",
+						},
+					},
+				},
+			}
+		}
+	}
+	if mm.Equal(os.o.GetMarketMap()) {
+		return &types.UpdateMarketMapResponse{}, nil
+	}
+	err = os.o.UpdateMarketMap(mm)
+	if err != nil {
+		return &types.UpdateMarketMapResponse{}, err
+	}
+	err = os.o.WriteMarketMap()
+	return &types.UpdateMarketMapResponse{}, err
 }
 
 // MarketMap returns the current market map from the Oracle.

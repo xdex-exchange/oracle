@@ -14,9 +14,17 @@ FROM ubuntu:rolling
 EXPOSE 8080 8002
 
 COPY --from=builder /src/slinky/build/* /usr/local/bin/
-RUN apt-get update && apt-get install jq -y && apt-get install ca-certificates -y
+RUN apt-get update && apt-get install jq -y \
+    make \
+    jq \
+    curl \
+    wget \
+    tree \
+    ca-certificates
 
 WORKDIR /usr/local/bin/
+
 RUN mkdir -p /oracle
-#RUN scripts --use-core=true --temp-file=/oracle/markets.json
-ENTRYPOINT [ "slinky" ]
+RUN scripts --use-core=true --temp-file=/oracle/markets.json
+
+CMD ["tail", "-f", "/dev/null"]

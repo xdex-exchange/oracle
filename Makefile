@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-export VERSION := $(shell echo $(shell git describe --always --match "v*") | sed 's/^v//')
+export VERSION := v1.1.0
 export COMMIT := $(shell git log -1 --format='%H')
 export COMETBFT_VERSION := $(shell go list -m github.com/cometbft/cometbft | sed 's:.* ::')
 
@@ -30,7 +30,7 @@ DEV_COMPOSE ?= $(CURDIR)/contrib/compose/docker-compose-dev.yml
 LEVANT_VAR_FILE:=$(shell mktemp -d)/levant.yaml
 NOMAD_FILE_SLINKY:=contrib/nomad/slinky.nomad
 
-TAG := $(shell git describe --tags --always --dirty)
+TAG := v1.1.0
 
 export HOMEDIR := $(HOMEDIR)
 export APP_TOML := $(APP_TOML)
@@ -58,9 +58,17 @@ build: tidy
 run-oracle-client: build
 	@./build/client --host localhost --port 8080
 
+start-dydx-dev:
+	@echo "Starting development oracle side-car, blockchain, grafana, and prometheus dashboard..."
+	@$(DOCKER_COMPOSE) -f $(DEV_COMPOSE) --profile dydx up -d
+
 start-all-dev:
 	@echo "Starting development oracle side-car, blockchain, grafana, and prometheus dashboard..."
 	@$(DOCKER_COMPOSE) -f $(DEV_COMPOSE) --profile all up -d
+
+stop-dydx-dev:
+	@echo "Stopping development network..."
+	@$(DOCKER_COMPOSE) -f $(DEV_COMPOSE) --profile dydx down
 
 stop-all-dev:
 	@echo "Stopping development network..."

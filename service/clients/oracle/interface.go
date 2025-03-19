@@ -62,3 +62,7 @@ func (c NoOpClient) Version(
 ) (*types.QueryVersionResponse, error) {
 	return nil, nil
 }
+
+func (c NoOpClient) UpdateMarketMap(ctx context.Context, in *types.UpdateMarketMapRequest, opts ...grpc.CallOption) (*types.UpdateMarketMapResponse, error) {
+	return nil, nil
+}

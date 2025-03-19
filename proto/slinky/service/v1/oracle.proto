@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "cosmos_proto/cosmos.proto";
 import "slinky/marketmap/v1/market.proto";
+import "slinky/service/v1/ticker.proto";
 
 option go_package = "github.com/skip-mev/slinky/service/servers/oracle/types";
 
@@ -27,7 +28,23 @@ service Oracle {
   rpc Version(QueryVersionRequest) returns (QueryVersionResponse) {
     option (google.api.http).get = "/slinky/oracle/v1/version";
   }
+
+  // UpdateMarketMap defines a method for add or del market map
+  // configuration.
+  rpc UpdateMarketMap(UpdateMarketMapRequest) returns (UpdateMarketMapResponse) {
+    option (google.api.http) = {
+      post: "/slinky/oracle/v1/updatemarketmap"
+      body : "*"
+    };
+  }
 }
+
+message UpdateMarketMapRequest {
+  string signature = 1;
+  repeated slinky.service.v1.Ticker tickers = 2;
+}
+
+message UpdateMarketMapResponse {}
 
 // QueryPricesRequest defines the request type for the the Prices method.
 message QueryPricesRequest {}

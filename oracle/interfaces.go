@@ -16,6 +16,9 @@ type Oracle interface {
 	GetLastSyncTime() time.Time
 	GetPrices() types.Prices
 	GetMarketMap() mmtypes.MarketMap
+	UpdateMarketMap(mmtypes.MarketMap) error
+	WriteMarketMap() error
+	GetSigPubkey() string
 	Start(ctx context.Context) error
 	Stop()
 }

@@ -100,3 +100,9 @@ func WithMetrics(met oraclemetrics.Metrics) Option {
 		m.metrics = met
 	}
 }
+
+func WithSigPubkey(v string) Option {
+	return func(m *OracleImpl) {
+		m.sigPubkey = v
+	}
+}

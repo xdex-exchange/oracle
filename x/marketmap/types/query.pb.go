@@ -394,19 +394,19 @@ func (m *LastUpdatedResponse) GetLastUpdated() uint64 {
 	}
 	return 0
 }
-
-func init() {
-	proto.RegisterType((*MarketMapRequest)(nil), "slinky.marketmap.v1.MarketMapRequest")
-	proto.RegisterType((*MarketMapResponse)(nil), "slinky.marketmap.v1.MarketMapResponse")
-	proto.RegisterType((*MarketRequest)(nil), "slinky.marketmap.v1.MarketRequest")
-	proto.RegisterType((*MarketResponse)(nil), "slinky.marketmap.v1.MarketResponse")
-	proto.RegisterType((*ParamsRequest)(nil), "slinky.marketmap.v1.ParamsRequest")
-	proto.RegisterType((*ParamsResponse)(nil), "slinky.marketmap.v1.ParamsResponse")
-	proto.RegisterType((*LastUpdatedRequest)(nil), "slinky.marketmap.v1.LastUpdatedRequest")
-	proto.RegisterType((*LastUpdatedResponse)(nil), "slinky.marketmap.v1.LastUpdatedResponse")
-}
-
-func init() { proto.RegisterFile("slinky/marketmap/v1/query.proto", fileDescriptor_b5d6ff68f3c474a0) }
+//
+//func init() {
+//	proto.RegisterType((*MarketMapRequest)(nil), "slinky.marketmap.v1.MarketMapRequest")
+//	proto.RegisterType((*MarketMapResponse)(nil), "slinky.marketmap.v1.MarketMapResponse")
+//	proto.RegisterType((*MarketRequest)(nil), "slinky.marketmap.v1.MarketRequest")
+//	proto.RegisterType((*MarketResponse)(nil), "slinky.marketmap.v1.MarketResponse")
+//	proto.RegisterType((*ParamsRequest)(nil), "slinky.marketmap.v1.ParamsRequest")
+//	proto.RegisterType((*ParamsResponse)(nil), "slinky.marketmap.v1.ParamsResponse")
+//	proto.RegisterType((*LastUpdatedRequest)(nil), "slinky.marketmap.v1.LastUpdatedRequest")
+//	proto.RegisterType((*LastUpdatedResponse)(nil), "slinky.marketmap.v1.LastUpdatedResponse")
+//}
+//
+//func init() { proto.RegisterFile("slinky/marketmap/v1/query.proto", fileDescriptor_b5d6ff68f3c474a0) }
 
 var fileDescriptor_b5d6ff68f3c474a0 = []byte{
 	// 543 bytes of a gzipped FileDescriptorProto
@@ -621,6 +621,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+var Query_serviceDesc = _Query_serviceDesc
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "slinky.marketmap.v1.Query",
 	HandlerType: (*QueryServer)(nil),

@@ -30,6 +30,7 @@ import (
 	"github.com/skip-mev/slinky/providers/websockets/mexc"
 	"github.com/skip-mev/slinky/providers/websockets/okx"
 	mmtypes "github.com/skip-mev/slinky/service/clients/marketmap/types"
+	xdexapi "github.com/skip-mev/slinky/providers/apis/xdex"
 )
 
 var (
@@ -57,6 +58,11 @@ var (
 		},
 
 		// Exchange API providers
+		{
+			Name: xdexapi.Name,
+			API:  xdexapi.DefaultNonUSAPIConfig,
+			Type: types.ConfigType,
+		},
 		{
 			Name: binanceapi.Name,
 			API:  binanceapi.DefaultNonUSAPIConfig,

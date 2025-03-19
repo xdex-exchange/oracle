@@ -25,6 +25,8 @@ func (o *OracleImpl) UpdateMarketMap(marketMap mmtypes.MarketMap) error {
 		return err
 	}
 
+	//o.logger.Info("UpdateMarketMap", zap.Any("validSubset", validSubset))
+
 	if len(validSubset.Markets) == 0 {
 		o.logger.Warn("market map update produced no valid markets to fetch")
 	}

@@ -75,6 +75,7 @@ var (
 	maxAge              int
 	disableCompressLogs bool
 	disableRotatingLogs bool
+	sigPubkey           string
 )
 
 const (
@@ -82,6 +83,13 @@ const (
 )
 
 func init() {
+	rootCmd.Flags().StringVarP(
+		&sigPubkey,
+		"sig-pubkey",
+		"",
+		"0be5aeb0e3af5289be689c7be85c300be312054161913a8a83536f2632e7e33c",
+		"use pubkey verify sig msg.",
+	)
 	rootCmd.Flags().StringVarP(
 		&marketMapProvider,
 		"marketmap-provider",
@@ -100,14 +108,14 @@ func init() {
 		&marketCfgPath,
 		"market-config-path",
 		"",
-		"",
+		"/oracle/markets.json",
 		"Path to the market config file. If you supplied a node URL in your config, this will not be required.",
 	)
 	rootCmd.Flags().StringVarP(
 		&updateMarketCfgPath,
 		"update-market-config-path",
 		"",
-		"",
+		"/oracle/markets.json",
 		"Path where the current market config will be written. Overwrites any pre-existing file. Requires an http-node-url/marketmap provider in your oracle.json config.",
 	)
 	rootCmd.Flags().BoolVarP(
@@ -232,7 +240,7 @@ func init() {
 		panic(fmt.Sprintf("failed to bind flags: %v", err))
 	}
 
-	rootCmd.MarkFlagsMutuallyExclusive("update-market-config-path", "market-config-path")
+	//rootCmd.MarkFlagsMutuallyExclusive("update-market-config-path", "market-config-path")
 	rootCmd.MarkFlagsMutuallyExclusive("market-map-endpoint", "market-config-path")
 
 	rootCmd.AddCommand(versionCmd)
@@ -305,6 +313,7 @@ func runOracle() error {
 		"successfully read in configs",
 		zap.String("oracle_config_path", oracleCfgPath),
 		zap.String("market_config_path", marketCfgPath),
+		zap.String("update_market_config_path", updateMarketCfgPath),
 	)
 
 	metrics := oraclemetrics.NewMetricsFromConfig(cfg.Metrics)
@@ -325,6 +334,7 @@ func runOracle() error {
 		oracle.WithPriceWebSocketQueryHandlerFactory(oraclefactory.WebSocketQueryHandlerFactory), // Replace with custom websocket query handler factory.
 		oracle.WithMarketMapperFactory(oraclefactory.MarketMapProviderFactory),
 		oracle.WithMetrics(metrics),
+		oracle.WithSigPubkey(sigPubkey),
 	}
 	if updateMarketCfgPath != "" {
 		oracleOpts = append(oracleOpts, oracle.WithWriteTo(updateMarketCfgPath))

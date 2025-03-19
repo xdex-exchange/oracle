@@ -25,7 +25,7 @@ func (o *OracleImpl) Init(ctx context.Context) error {
 		case types.ConfigType:
 			err = o.createPriceProvider(ctx, cfg)
 		case mmclienttypes.ConfigType:
-			err = o.createMarketMapProvider(cfg)
+			//err = o.createMarketMapProvider(cfg)
 		default:
 			err = fmt.Errorf("unknown provider type: %s", cfg.Type)
 		}

@@ -264,3 +264,7 @@ func (c *GRPCClient) Version(ctx context.Context, req *types.QueryVersionRequest
 
 	return c.client.Version(ctx, req, grpc.WaitForReady(true))
 }
+
+func (c *GRPCClient) UpdateMarketMap(ctx context.Context, in *types.UpdateMarketMapRequest, opts ...grpc.CallOption) (*types.UpdateMarketMapResponse, error) {
+	return nil, nil
+}

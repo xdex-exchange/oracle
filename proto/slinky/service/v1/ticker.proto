@@ -1,0 +1,24 @@
+syntax = "proto3";
+package slinky.service.v1;
+
+option go_package = "github.com/skip-mev/slinky/service/servers/oracle/types";
+
+import "gogoproto/gogo.proto";
+import "slinky/types/v1/currency_pair.proto";
+
+// Ticker represents a price feed for a given asset pair i.e. BTC/USD. The price
+// feed is scaled to a number of decimal places and has a minimum number of
+// providers required to consider the ticker valid.
+message Ticker {
+  // CurrencyPair is the currency pair for this ticker.
+  slinky.types.v1.CurrencyPair currency_pair = 1
+      [ (gogoproto.nullable) = false ];
+
+  // Decimals is the number of decimal places for the ticker. The number of
+  // decimal places is used to convert the price to a human-readable format.
+  uint64 decimals = 2;
+
+  // Enabled is the flag that denotes if the Ticker is enabled for price
+  // fetching by an oracle.
+  bool enabled = 3;
+}

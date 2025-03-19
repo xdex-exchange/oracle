@@ -3227,6 +3227,117 @@ var (
 	CoreMarketMap mmtypes.MarketMap
 	// CoreMarketMapJSON is the JSON representation of the Core MarketMap that can be used
 	// to initialize for a genesis state or used by the sidecar as as static market map.
+	CoreMarketMapJSON2 = `
+	{
+		"markets": {
+		  "BTC/USD": {
+			"ticker": {
+			  "currency_pair": {
+				"Base": "BTC",
+				"Quote": "USD"
+			  },
+			  "decimals": 5,
+			  "min_provider_count": 3,
+			  "enabled": true
+			},
+			"provider_configs": [
+			  {
+				"name": "binance_api",
+				"off_chain_ticker": "BTCUSDT",
+				"normalize_by_pair": {
+				  "Base": "USDT",
+				  "Quote": "USD"
+				}
+			  },
+			  {
+				"name": "bitstamp_api",
+				"off_chain_ticker": "BTCUSDT",
+				"normalize_by_pair": {
+				  "Base": "USDT",
+				  "Quote": "USD"
+				}
+			  },
+			  {
+				"name": "coinbase_api",
+				"off_chain_ticker": "BTC-USD"
+			  },
+			  {
+				"name": "kraken_api",
+				"off_chain_ticker": "XXBTZUSD"
+			  }
+			]
+		  },
+		  "ETH/USD": {
+			"ticker": {
+			  "currency_pair": {
+				"Base": "ETH",
+				"Quote": "USD"
+			  },
+			  "decimals": 6,
+			  "min_provider_count": 3,
+			  "enabled": true
+			},
+			"provider_configs": [
+			  {
+				"name": "binance_api",
+				"off_chain_ticker": "ETHUSDT",
+				"normalize_by_pair": {
+				  "Base": "USDT",
+				  "Quote": "USD"
+				}
+			  },
+			  {
+				"name": "bitstamp_api",
+				"off_chain_ticker": "ETHUSDT",
+				"normalize_by_pair": {
+				  "Base": "USDT",
+				  "Quote": "USD"
+				}
+			  },
+			  {
+				"name": "coinbase_api",
+				"off_chain_ticker": "ETH-USD"
+			  },
+			  {
+				"name": "kraken_api",
+				"off_chain_ticker": "XETHZUSD"
+			  }
+			]
+		  },
+          "USDT/USD": {
+			"ticker": {
+			  "currency_pair": {
+				"Base": "USDT",
+				"Quote": "USD"
+			  },
+			  "decimals": 9,
+			  "min_provider_count": 1,
+			  "enabled": true
+			},
+			"provider_configs": [
+			  {
+				"name": "binance_api",
+				"off_chain_ticker": "USDCUSDT",
+				"invert": true
+			  },
+			  {
+				"name": "bitstamp_api",
+				"off_chain_ticker": "USDCUSDT",
+				"invert": true
+			  },
+			  {
+				"name": "coinbase_api",
+				"off_chain_ticker": "USDT-USD"
+			  },
+			  {
+				"name": "kraken_api",
+				"off_chain_ticker": "USDTZUSD"
+			  }
+			]
+		  }
+		}
+	}
+	`
 	CoreMarketMapJSON = `
 	{
 		"markets": {
@@ -9850,6 +9961,7 @@ func init() {
 		unmarshalValidate("CoinMarketCap", CoinMarketCapMarketMapJSON, &CoinMarketCapMarketMap),
 		unmarshalValidate("Raydium", RaydiumMarketMapJSON, &RaydiumMarketMap),
 		unmarshalValidate("Core", CoreMarketMapJSON, &CoreMarketMap),
+		//unmarshalValidate("Core", CoreMarketMapJSON2, &CoreMarketMap),
 		unmarshalValidate("UniswapV3Base", UniswapV3BaseMarketMapJSON, &UniswapV3BaseMarketMap),
 		unmarshalValidate("CoinGecko", CoinGeckoMarketMapJSON, &CoinGeckoMarketMap),
 		unmarshalValidate("Osmosis", OsmosisMarketMapJSON, &OsmosisMarketMap),
