@@ -38,4 +38,4 @@ run.go
 
 *.log*
 oracle.json
-
+version.sh
