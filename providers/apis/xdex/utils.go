@@ -15,7 +15,7 @@ const (
 	// URL is the base URL of the Xdex API. This includes the base and quote
 	// currency pairs that need to be inserted into the URL. This URL should be utilized
 	// by Non-US users.
-	URL = "https://abvote.orderstory.xyz/api/v1/oracle/price?symbols=%s%s%s"
+	URL = "https://abvote.ab.meme/api/v1/oracle/price?symbols=%s%s%s"
 
 	Quotation    = "%22"
 	Separator    = ","
