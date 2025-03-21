@@ -4,11 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/gob"
-	"encoding/hex"
-	"encoding/json"
-	"errors"
 	"fmt"
-	"github.com/cometbft/cometbft/crypto/ed25519"
 	ctypes "github.com/skip-mev/slinky/pkg/types"
 	"github.com/skip-mev/slinky/providers/apis/xdex"
 	"net/http"
@@ -202,7 +198,7 @@ func (os *OracleServer) UpdateMarketMap(ctx context.Context, in *types.UpdateMar
 	if len(in.Tickers) < 1 {
 		return &types.UpdateMarketMapResponse{}, nil
 	}
-	sig, err := hex.DecodeString(in.Signature)
+	/*sig, err := hex.DecodeString(in.Signature)
 	if err != nil {
 		return &types.UpdateMarketMapResponse{}, err
 	}
@@ -217,7 +213,7 @@ func (os *OracleServer) UpdateMarketMap(ctx context.Context, in *types.UpdateMar
 	isPass := ed25519.PubKey(pubkey).VerifySignature(msg, sig)
 	if !isPass {
 		return &types.UpdateMarketMapResponse{}, errors.New("signature no pass")
-	}
+	}*/
 	var mm mtypes.MarketMap
 	var buf bytes.Buffer
 	enc := gob.NewEncoder(&buf)
@@ -245,10 +241,10 @@ func (os *OracleServer) UpdateMarketMap(ctx context.Context, in *types.UpdateMar
 					{
 						Name: xdex.Name,
 						OffChainTicker: fmt.Sprintf("%s%s", ticker.CurrencyPair.Base, ticker.CurrencyPair.Quote),
-						NormalizeByPair: &ctypes.CurrencyPair{
+						/*NormalizeByPair: &ctypes.CurrencyPair{
 							Base: "USDT",
 							Quote: "USD",
-						},
+						},*/
 					},
 				},
 			}
@@ -257,7 +253,7 @@ func (os *OracleServer) UpdateMarketMap(ctx context.Context, in *types.UpdateMar
 	if mm.Equal(os.o.GetMarketMap()) {
 		return &types.UpdateMarketMapResponse{}, nil
 	}
-	err = os.o.UpdateMarketMap(mm)
+	err := os.o.UpdateMarketMap(mm)
 	if err != nil {
 		return &types.UpdateMarketMapResponse{}, err
 	}
