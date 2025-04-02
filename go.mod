@@ -1,12 +1,11 @@
 module github.com/skip-mev/slinky
 
 go 1.23.1
-
-toolchain go1.23.2
+toolchain go1.24.1
 
 require (
 	cosmossdk.io/api v0.7.6
-	cosmossdk.io/collections v0.4.0
+	cosmossdk.io/collections v1.2.0
 	cosmossdk.io/core v0.11.1
 	cosmossdk.io/depinject v1.1.0
 	cosmossdk.io/log v1.4.1
@@ -31,7 +30,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/prometheus/client_golang v1.20.5
 	github.com/skip-mev/chaintestutil v0.0.0-20240514161515-056d7ba45610
-	github.com/spf13/cast v1.7.0
+	github.com/spf13/cast v1.7.1
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
@@ -43,12 +42,13 @@ require (
 	golang.org/x/vuln v1.1.3
 	google.golang.org/genproto/googleapis/api v0.0.0-20240903143218-8af14fe29dc1
 	google.golang.org/grpc v1.68.1
-	google.golang.org/protobuf v1.35.2
+	google.golang.org/protobuf v1.36.6
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	mvdan.cc/gofumpt v0.7.0
 )
 
 require (
+	cosmossdk.io/schema v1.0.0 // indirect
 	github.com/golangci/go-printf-func-name v0.1.0 // indirect
 	github.com/raeperd/recvcheck v0.1.2 // indirect
 	github.com/uudashr/iface v1.2.1 // indirect
@@ -118,7 +118,7 @@ require (
 	github.com/consensys/bavard v0.1.13 // indirect
 	github.com/consensys/gnark-crypto v0.12.1 // indirect
 	github.com/cosmos/btcutil v1.0.5 // indirect
-	github.com/cosmos/cosmos-db v1.0.2 // indirect
+	github.com/cosmos/cosmos-db v1.1.1 // indirect
 	github.com/cosmos/go-bip39 v1.0.0 // indirect
 	github.com/cosmos/iavl v1.2.0 // indirect
 	github.com/cosmos/ibc-go/modules/capability v1.0.1 // indirect
@@ -354,7 +354,7 @@ require (
 	honnef.co/go/tools v0.5.1 // indirect
 	mvdan.cc/unparam v0.0.0-20240528143540-8a5130ca722f // indirect
 	nhooyr.io/websocket v1.8.6 // indirect
-	pgregory.net/rapid v1.1.0 // indirect
+	pgregory.net/rapid v1.2.0 // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
