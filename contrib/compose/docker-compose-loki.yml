@@ -1,0 +1,65 @@
+version: '3'
+networks:
+  dydx:
+    external: true
+
+services:
+  loki:
+    image: grafana/loki:2.8.11
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - 3110:3100
+    volumes:
+      - ../loki/loki-config.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml -config.expand-env=true
+    depends_on:
+      - minio
+    networks:
+      - dydx
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: unless-stopped
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /data/loki-data && \
+        mkdir -p /data/loki-ruler && \
+        minio server /data
+    environment:
+      - MINIO_ROOT_USER=loki
+      - MINIO_ROOT_PASSWORD=password
+      - MINIO_PROMETHEUS_AUTH_TYPE=public
+      - MINIO_UPDATE=off
+    ports:
+      - 9110:9000
+    volumes:
+      - ./minio:/data
+    networks:
+      - dydx
+
+  promtail:
+    image: grafana/promtail:2.8.11
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - ../loki/promtail-config.yaml:/etc/promtail/promtail-config.yaml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./promtail:/tmp
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    networks:
+      - dydx
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
