@@ -7,7 +7,7 @@ toolchain go1.23.2
 require (
 	cosmossdk.io/api v0.7.6
 	cosmossdk.io/collections v0.4.0
-	cosmossdk.io/core v0.11.1
+	cosmossdk.io/core v1.0.0
 	cosmossdk.io/depinject v1.1.0
 	cosmossdk.io/log v1.4.1
 	cosmossdk.io/math v1.4.0
@@ -49,6 +49,7 @@ require (
 )
 
 require (
+	cosmossdk.io/schema v1.0.0 // indirect
 	github.com/golangci/go-printf-func-name v0.1.0 // indirect
 	github.com/raeperd/recvcheck v0.1.2 // indirect
 	github.com/uudashr/iface v1.2.1 // indirect
